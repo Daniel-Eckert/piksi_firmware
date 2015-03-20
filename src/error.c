@@ -71,7 +71,7 @@ void _screaming_death(const char *pos, const char *msg)
   /* Continuously send error message */
   #define APPROX_ONE_SEC 33000000
   while (1) {
-    sbp_send_message(&sbp_state, MSG_PRINT, 0, len, (u8*)err_msg, &fallback_write);
+    sbp_send_message(&sbp_state, SBP_MSG_PRINT, 0, len, (u8*)err_msg, &fallback_write);
     led_toggle(LED_RED);
     for (u32 d = 0; d < 5*APPROX_ONE_SEC; d++) {
       __asm__("nop");
@@ -82,4 +82,3 @@ void _screaming_death(const char *pos, const char *msg)
 /** \} */
 
 /** \} */
-

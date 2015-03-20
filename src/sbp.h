@@ -13,11 +13,14 @@
 #ifndef SWIFTNAV_SBP_H
 #define SWIFTNAV_SBP_H
 
+#include <libsbp/acquisition.h>
 #include <libsbp/common.h>
+#include <libsbp/observation.h>
+#include <libsbp/piksi.h>
+#include <libsbp/tracking.h>
 #include <libsbp/sbp.h>
 
 #include "peripherals/usart.h"
-#include "sbp_piksi.h"
 
 void log_obs_latency(float latency_ms);
 void log_obs_latency_tick();

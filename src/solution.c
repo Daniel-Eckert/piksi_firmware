@@ -202,14 +202,14 @@ void send_observations(u8 n, gps_time_t *t, navigation_measurement_t *m)
   /* Upper limit set by SBP framing size, preventing underflow */
   u16 msg_payload_size = MAX(
       MIN(msg_obs_max_size, SBP_FRAMING_MAX_PAYLOAD_SIZE),
-      sizeof(msg_obs_header_t)
-    ) - sizeof(msg_obs_header_t);
+      sizeof(observation_header_t)
+    ) - sizeof(observation_header_t);
 
   /* Lower limit set by sending at least 1 observation */
-  msg_payload_size = MAX(msg_payload_size, sizeof(msg_obs_content_t));
+  msg_payload_size = MAX(msg_payload_size, sizeof(packed_obs_content_t));
 
   /* Round down the number of observations per message */
-  u16 obs_in_msg = msg_payload_size / sizeof(msg_obs_content_t);
+  u16 obs_in_msg = msg_payload_size / sizeof(packed_obs_content_t);
 
   /* Round up the number of messages */
   u16 total = MIN((n + obs_in_msg - 1) / obs_in_msg, MSG_OBS_HEADER_MAX_SIZE);
@@ -218,8 +218,8 @@ void send_observations(u8 n, gps_time_t *t, navigation_measurement_t *m)
   for (u8 count = 0; count < total; count++) {
 
     u8 curr_n = MIN(n - obs_i, obs_in_msg);
-    pack_obs_header(t, total, count, (msg_obs_header_t*) buff);
-    msg_obs_content_t *obs = (msg_obs_content_t *)&buff[sizeof(msg_obs_header_t)];
+    pack_obs_header(t, total, count, (observation_header_t*) buff);
+    packed_obs_content_t *obs = (packed_obs_content_t *)&buff[sizeof(observation_header_t)];
 
     for (u8 i = 0; i < curr_n; i++, obs_i++) {
       if (pack_obs_content(m[obs_i].raw_pseudorange,
@@ -234,8 +234,8 @@ void send_observations(u8 n, gps_time_t *t, navigation_measurement_t *m)
       }
     }
 
-    sbp_send_msg(MSG_PACKED_OBS,
-      sizeof(msg_obs_header_t) + curr_n*sizeof(msg_obs_content_t),
+    sbp_send_msg(SBP_MSG_OBS,
+      sizeof(observation_header_t) + curr_n*sizeof(packed_obs_content_t),
       buff);
 
   }
@@ -752,16 +752,15 @@ void solution_setup()
 
   static sbp_msg_callbacks_node_t reset_filters_node;
   sbp_register_cbk(
-    MSG_RESET_FILTERS,
+    SBP_MSG_RESET_FILTERS,
     &reset_filters_callback,
     &reset_filters_node
   );
 
   static sbp_msg_callbacks_node_t init_base_node;
   sbp_register_cbk(
-    MSG_INIT_BASE,
+    SBP_MSG_INIT_BASE,
     &init_base_callback,
     &init_base_node
   );
 }
-

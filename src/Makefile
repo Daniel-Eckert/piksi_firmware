@@ -110,7 +110,6 @@ CSRC := $(PORTSRC) \
         $(SWIFTNAV_ROOT)/src/minIni/minGlue.o \
         $(SWIFTNAV_ROOT)/src/init.o \
         $(SWIFTNAV_ROOT)/src/sbp.o \
-        $(SWIFTNAV_ROOT)/src/sbp_piksi.o \
         $(SWIFTNAV_ROOT)/src/sbp_fileio.o \
         $(SWIFTNAV_ROOT)/src/sbp_utils.o \
         $(SWIFTNAV_ROOT)/src/error.o \

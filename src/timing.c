@@ -232,10 +232,9 @@ void timing_setup(void)
    * periodically. */
   static sbp_msg_callbacks_node_t set_time_node;
 
-  sbp_register_cbk(MSG_SET_TIME, &set_time_callback, &set_time_node);
+  sbp_register_cbk(SBP_MSG_SET_TIME, &set_time_callback, &set_time_node);
 
   clock_est_init(&clock_state);
 }
 
 /** \} */
-

@@ -106,7 +106,7 @@ void manage_acq_setup()
   }
 
   sbp_register_cbk(
-    MSG_ALMANAC,
+    SBP_MSG_ALMANAC,
     &almanac_callback,
     &almanac_callback_node
   );

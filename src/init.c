@@ -66,7 +66,7 @@ static void reset_callback_register(void)
   static sbp_msg_callbacks_node_t reset_node;
 
   sbp_register_cbk(
-    MSG_RESET,
+    SBP_MSG_RESET,
     &reset_callback,
     &reset_node
   );

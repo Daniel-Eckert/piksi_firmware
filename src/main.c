@@ -100,7 +100,7 @@ static msg_t nav_msg_thread(void *arg)
           if (!es[tracking_channel[i].prn].healthy) {
             log_info("PRN %02d unhealthy\n", tracking_channel[i].prn+1);
           } else {
-            sbp_send_msg(MSG_EPHEMERIS,
+            sbp_send_msg(SBP_MSG_EPHEMERIS,
                          sizeof(ephemeris_t),
                          (u8 *)&es[tracking_channel[i].prn]);
           }
