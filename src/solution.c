@@ -85,7 +85,7 @@ void solution_send_sbp(gnss_solution *soln, dops_t *dops)
     DO_EVERY(10,
       msg_dops_t sbp_dops;
       sbp_make_dops(&sbp_dops, dops, &(soln->time));
-      sbp_send_msg(SBP_MSG_DOPS, sizeof(sbp_dops), (u8 *) &sbp_dops);
+      sbp_send_msg(SBP_MSG_DOPS, sizeof(msg_dops_t), (u8 *) &sbp_dops);
     );
   }
 }

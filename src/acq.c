@@ -54,7 +54,7 @@ void acq_send_result(u8 prn, float snr, float cp, float cf)
   acq_result_msg.cf = cf;
 
   sbp_send_msg(SBP_MSG_ACQ_RESULT,
-               sizeof(acq_result_msg),
+               sizeof(msg_acq_result_t),
                (u8 *)&acq_result_msg);
 }
 
